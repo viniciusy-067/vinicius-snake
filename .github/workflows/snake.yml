@@ -25,6 +25,5 @@ jobs:
         with:
           message: "update snake 🐍"
           add: "dist/*.svg"
-
-      - name: Push
-        run: git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
