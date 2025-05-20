@@ -1,0 +1,30 @@
+name: Generate Snake
+
+on:
+  schedule:
+    - cron: "0 0 * * *" # roda todo dia à meia-noite
+  workflow_dispatch:
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v3
+
+      - name: Geração da cobrinha
+        uses: Platane/snk@v3
+        with:
+          github_user_name: viniciusy-067
+          outputs: |
+            dist/github-contribution-grid-snake.svg
+            dist/github-contribution-grid-snake-dark.svg?palette=github-dark
+
+      - name: Commit da cobrinha
+        uses: EndBug/add-and-commit@v9
+        with:
+          message: "update snake 🐍"
+          add: "dist/*.svg"
+
+      - name: Push
+        run: git push
